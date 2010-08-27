@@ -1,0 +1,23 @@
+- title "Categories"
+
+%p Here are the current product categories that are in the system. When a new product line is added to the website it must be assigned to one of these categories. Customers can then browse for products based upon the category. Examples of sensible categories are: Bras, Knickers.
+
+%table.interactive_table
+  %thead
+    %tr
+      %th Position
+      %th Title
+      %th{:colspan => '3'} Actions
+  %tbody
+    - for category in @categories
+      %tr
+        %td= h category.position
+        %td= h category.title
+        %td= link_to 'Show', category
+        %td= link_to 'Edit', edit_category_path(category)
+        %td= link_to 'Destroy', category, :confirm => 'Are you sure?', :method => :delete
+
+%p
+  %strong Choices:
+  = link_to "New Category", new_category_path
+

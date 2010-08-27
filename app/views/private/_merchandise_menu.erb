@@ -1,0 +1,6 @@
+<li <%= "id='selected_sub_menu'" if controller.controller_name == 'product_lines' %>><%= link_to 'Products', :controller => 'product_lines' %></li>
+<li <%= "id='selected_sub_menu'" if controller.controller_name == 'manufacturers' %>><%= link_to 'Manufacturers', :controller => 'manufacturers' %></li>
+<li <%= "id='selected_sub_menu'" if controller.controller_name == 'flags' %>><%= link_to 'Flags', :controller => 'flags' %></li>
+<li <%= "id='selected_sub_menu'" if controller.controller_name == 'categories' %>><%= link_to 'Categories', :controller => 'categories' %></li>
+<li <%= "id='selected_sub_menu'" if controller.controller_name == 'photos' %>><%= link_to 'Photos', :controller => 'photos' %></li>
+

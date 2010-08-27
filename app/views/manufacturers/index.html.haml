@@ -1,0 +1,27 @@
+- title "Manufacturers"
+
+%p Here are the manufaturers currently in the system. You will need to select a manufacturer when adding a new product line.
+
+%table.interactive_table
+  %thead
+    %tr
+      %th Name
+      %th Telephone
+      %th Contact
+      %th Account
+      %th{:colspan => '3'} Actions
+  %tbody
+    - for manufacturer in @manufacturers
+      %tr
+        %td= h manufacturer.name
+        %td= h manufacturer.telephone
+        %td= h manufacturer.contact
+        %td= h manufacturer.account
+        %td= link_to 'Show', manufacturer
+        %td= link_to 'Edit', edit_manufacturer_path(manufacturer)
+        %td= link_to 'Destroy', manufacturer, :confirm => 'Are you sure?', :method => :delete
+
+%p
+  %strong Choices:
+  = link_to "New Manufacturer", new_manufacturer_path
+

@@ -1,0 +1,9 @@
+require 'polaroid' # customised image operator
+
+@photo.operate do |image|
+    image.polaroid
+    image.image_overlay 'public/images/site/paper-clip.png',
+    :alignment => :top_left,
+    :offset => '24x0'
+end
+

@@ -1,0 +1,14 @@
+To get started you will need to setup the following:
+
+1) Setup the config/database.yml file so that rails can access your databases.
+2) Setup the information required in config/heffer.rb
+3) Setup teh following email addresses:
+  a) orders@<DOMAIN>
+
+x) Navigate to the /private part of the site and setup the following:
+  a) A username and password (Optional but highly recommended)
+  b) A page titled 'homepage' (Optional will replace default)
+  c) A page titled 'returns' (Optional but refered to in dispatch notice)
+  d) A page titled 'legal' (Optional)
+  e) A page titled 'contact' (Optional)
+

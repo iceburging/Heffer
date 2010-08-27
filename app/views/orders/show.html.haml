@@ -1,0 +1,128 @@
+- title "Order - #{@order.try(:order_number)}"
+
+%h2 Placed on
+
+#contact
+  %h2 Contact:
+  %p #{@order.try(:billing_firstname)} #{@order.try(:billing_lastname)}
+  %p #{mail_to @order.try(:billing_email)}
+  %p #{@order.try(:billing_telephone_number)}
+
+%h3 Next Action:
+- case @order.status
+- when 'authorized'
+  = render :partial => 'accept_reject', :locals => { :order => @order }
+- when 'captured'
+  = render :partial => 'dispatch', :locals => { :order => @order }
+- when 'dispatched'
+  = render :partial => 'refund', :locals => { :order => @order }
+- else
+  = render :partial => 'no_action', :locals => { :order => @order }
+
+%h3 Full Details:
+
+#order_information
+  %h4 Order Information
+  %p Order Number: #{@order.try(:order_number)}
+  %p Created At: #{@order.created_at.strftime("%H:%M %d/%m/%Y")}
+  %p Status: #{@order.status}
+  %p Transaction Reference: #{@order.try(:order_ref)}
+
+#billing_address
+  %h4 Billing Address
+  = insert_address(@order.billing_address)
+
+#billing_contact_information
+  %h4 Billing Contact Information
+  %p Email: #{@order.try(:billing_email)}
+  %p Phone: #{@order.try(:billing_telephone_number)}
+
+#delivery_address
+  %h4 Delivery Address
+  = insert_address(@order.delivery_address)
+
+#cart_contents
+  %h4 Order Contents
+  %table
+    %tr
+      %th Item
+      %th Quantity
+      %th Price
+
+    - @order.cart.items.each do |item|
+      %tr
+        %td= item.title
+        %td= item.quantity
+        %td= number_to_currency(item.option.product_line.price, :unit => "&pound;")
+
+    %tr
+      %td
+      %td
+      %th Subtotal
+
+    %tr
+      %td
+      %td
+      %td= number_to_currency(@order.subtotal, :unit => "&pound;")
+
+    %tr
+      %th{:colspan => '3'} Shipping Method
+
+    %tr
+      %td
+      %td= @order.shipping_method.try(:name)
+      %td= number_to_currency((@order.shipping_method.try(:price) || 0), :unit => "&pound;")
+
+    -unless @order.discount_value.blank?
+      %tr
+        %th{:colspan => '3'} Discount
+
+      %tr
+        %td
+        %td= @order.discount_description
+        %td= @order.discount_value
+
+    %tr
+      %td
+      %td
+      %th Total
+
+    %tr
+      %td
+      %td
+      %td= number_to_currency(@order.total, :unit => "&pound;")
+
+
+
+%h3 Advanced Details:
+
+- unless @order.enrollment_check_response.nil?
+  %h4 enrollment check response
+  #enrollment_check_response
+    %p= @order.try(:enrollment_check_response).try(:inspect)
+
+- unless @order.authenticate_response.nil?
+  %h4 authenticate response
+  #authenticate_response
+    %p= @order.try(:authenticate_response).try(:inspect)
+
+- unless @order.authorize_response.nil?
+  %h4 authorize response
+  #authorize_response
+    %p= @order.try(:authorize_response).try(:inspect)
+
+- unless @order.capture_response.nil?
+  %h4 capture response
+  #capture_response
+    %p= @order.try(:capture_response).try(:inspect)
+
+- unless @order.void_response.nil?
+  %h4 void response
+  #void_response
+    %p= @order.try(:void_response).try(:inspect)
+
+- unless @order.credit_response.nil?
+  %h4 credit response
+  #credit_response
+    %p= @order.try(:credit_response).try(:inspect)
+

@@ -1,0 +1,5 @@
+#mini_cart
+  = image_tag '/images/site/basket.png'
+  %h2= @order.try(:cart).try(:count)
+  %h3= number_to_currency(@order.try(:subtotal),:unit => "&pound;")
+

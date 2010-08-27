@@ -1,0 +1,6 @@
+- semantic_form_for @country do |form|
+  - form.inputs do
+    = form.input :name, :label => 'Name', :hint => 'the country name as displayed to the user (case sensitive)'
+    = form.input :iso_code, :label => 'Iso Code', :hint => "used during billing find corresponding iso code #{link_to('here', 'http://www.iso.org/iso/english_country_names_and_code_elements',:popup => true)} (capital letters please)"
+  = form.buttons
+

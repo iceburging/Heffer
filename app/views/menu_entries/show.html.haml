@@ -1,0 +1,16 @@
+- title "Menu Entry"
+
+%p
+  %strong Title:
+  =h @menu_entry.title
+%p
+  %strong Position:
+  =h @menu_entry.position
+
+%p
+  = link_to "Edit", edit_menu_entry_path(@menu_entry)
+  |
+  = link_to "Destroy", @menu_entry, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", menu_entries_path
+

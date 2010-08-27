@@ -1,0 +1,21 @@
+- form_for @option do |f|
+  = f.error_messages
+  %p
+    = f.label :product_line
+    %br
+    = f.text_field :product_line
+  %p
+    = f.label :size
+    %br
+    = f.text_field :size
+  %p
+    = f.label :colour
+    %br
+    = f.text_field :colour
+  %p
+    = f.label :available
+    %br
+    = f.check_box :available
+  %p
+    = f.submit "Submit"
+

@@ -1,0 +1,6 @@
+- semantic_form_for @menu_entry do |form|
+  - form.inputs do
+    = form.input :title, :label => 'Title', :hint => 'the title of the category as seen by the public (lowercase please)'
+    = form.input :position, :label => 'Position', :hint => 'used to control the order the menu entries appear in (lowest value shown first)'
+  = form.buttons
+

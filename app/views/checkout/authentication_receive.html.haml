@@ -1,0 +1,13 @@
+%html(xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en")
+  %head
+    %meta(http-equiv="content-type" content="text/html;charset=UTF-8")/
+
+
+  %body#iframe_content
+    %noscript
+      %p Javascript is currently disabled or is not supported by your browser. Please click the link to continue.
+      = link_to 'Continue with checkout', {:action => 'authorization'}, {:target => '_parent'}
+
+    :javascript
+      parent.location = "#{url_for(:action => 'authorization', :only_path => false)}";
+

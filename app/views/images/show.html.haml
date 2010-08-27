@@ -1,0 +1,15 @@
+- title "Image"
+
+%p
+  %strong Title:
+  =h @image.title
+%p
+  %strong Tag:
+  =h @image.tag
+
+%p
+  = link_to "Edit", edit_image_path(@image)
+  |
+  = link_to "Destroy", @image, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", images_path

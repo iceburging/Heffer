@@ -1,0 +1,86 @@
+- form_for @order, :url => {:action => 'update_order'} do |f|
+  = f.error_messages
+
+  %table
+    %tr
+      %th Item
+      %th Quantity
+      %th Price
+
+    - @order.cart.items.each_with_index do |item,index|
+      - fields_for "cart[items][]", item, :index => nil do |item_fields|
+
+        %tr
+          %td
+            = item.title
+            = hidden_field_tag 'cart[items][][option_id]', item.option.id
+          %td= item_fields.text_field :quantity
+          %td= item.option.product_line.price
+
+        %tr
+          %td= #link_to 'view ...', product_details_path(item.option.product_line)
+          %td
+          %td= link_to 'remove', {:action => 'remove_from_cart', :item_id => item.option.id}, :method => :put
+
+    %tr
+      %td
+      %th Subtotal
+      %td= number_to_currency(@order.subtotal, :unit => "&pound;")
+
+    %tr
+      %th Shipping Method
+
+      %td
+        = text_field :shipping_method, :name, :value => (@shipping_method.try(:name) || '')
+        %span.hint The shipping title
+      %td
+        = text_field :shipping_method,  :price, :value => "%.2f" % (@shipping_method.try(:price) || 0)
+        %span.hint The shipping price
+    %tr
+      %th Discount
+      %td
+        = f.text_field :discount_description
+        %span.hint The discount description
+      %td
+        = f.text_field :discount_value
+        %span.hint The discount value (positive)
+
+    %tr
+      %th Total
+      %td
+      %td= number_to_currency(@order.total, :unit => "&pound;")
+
+    %tr
+      %th(colspan=2)
+        Don't forget to update the basket before continuing
+      %td
+        .button
+          = f.submit 'Update Basket'
+
+- semantic_form_for @order do |f|
+  - f.inputs do
+    = f.input :order_ref, :label => 'Reference Number', :hint => 'Provides an order reference for our records', :required => false
+    = f.input :transaction_type, :label => 'Transaction Type', :as => :select, :collection => ["Cash ", "Cheque ", "Transfer ", "Other "], :hint => 'Identifies how the order was paid for', :required => false
+  - f.inputs :name => 'Billing Address' do
+    = f.input :billing_firstname, :label => 'Firstname', :required => false
+    = f.input :billing_lastname, :label => 'Lastname', :required => false
+    = f.input :billing_line1, :label => 'Line1', :required => false
+    = f.input :billing_line2, :label => 'Line2', :required => false
+    = f.input :billing_town, :label => 'Town', :required => false
+    = f.input :billing_county, :label => 'County', :required => false
+    = f.input :billing_country, :label => 'Country',:as => 'string', :required => false
+    = f.input :billing_postcode, :label => 'Postcode', :required => false
+    = f.input :billing_email, :label => 'Contact Email', :required => false
+    = f.input :billing_telephone_number, :label => 'Contact Telephone number', :required => false
+  - f.inputs :name => 'Delivery Address' do
+    = f.input :delivery_firstname, :label => 'Firstname', :required => false
+    = f.input :delivery_lastname, :label => 'Lastname', :required => false
+    = f.input :delivery_line1, :label => 'Line1', :required => false
+    = f.input :delivery_line2, :label => 'Line2', :required => false
+    = f.input :delivery_town, :label => 'Town', :required => false
+    = f.input :delivery_county, :label => 'County', :required => false
+    = f.input :delivery_country, :label => 'Country', :as => 'string', :required => false
+    = f.input :delivery_postcode, :label => 'Postcode', :required => false
+  - f.buttons do
+    = f.commit_button 'Place Order'
+

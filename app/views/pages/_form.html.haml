@@ -1,0 +1,8 @@
+- semantic_form_for @page do |form|
+  - form.inputs do
+    = form.input :menu_entry, :label => 'Menu Entry', :hint => 'The menu under which this page can be found'
+    = form.input :title, :label => 'Title', :hint => 'The title of this page. This will appear at the top of the page and in the sub menu'
+    = form.input :position, :label => 'Position', :hint=> 'The relative position of this page in the sub menu'
+    = form.input :content, :label => 'Content', :hint => 'The contents of this page. Both HTML and Textile can be used here (Textile prefered)'
+  = form.buttons
+

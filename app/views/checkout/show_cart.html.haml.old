@@ -1,0 +1,49 @@
+- title "Your Cart"
+
+- form_for :order, :url => { :action => 'update_order' } do |f|
+
+  %table
+    %tr
+      %th Item
+      %th Quantity
+      %th Price
+
+    - @order.cart.items.each_with_index do |item,index|
+      - fields_for "order[cart][items][]", item, :index => index do |fields|
+        %tr
+          %td= item.title
+          %td= fields.text_field :quantity
+          %td= number_to_currency(item.option.product_line.price, :unit => "&pound;")
+
+        %tr
+          %td= link_to 'view ...', product_details_path(item.option.product_line)
+          %td
+          %td= #link_to 'remove', :controller => 'cart', :action => 'remove', :id => item.option.id
+
+    %tr
+      %td
+      %th Subtotal
+      %td= number_to_currency(@order.subtotal, :unit => "&pound;")
+
+    %tr
+      %th Shipping Method
+      %td= f.select :shipping_method, ShippingMethod.find(:all).collect{|s| ["#{s.name}", s.id]}
+      %td= number_to_currency((@order.shipping_method.try(:price) || 0), :unit => "&pound;")
+
+    %tr
+      %th Total
+      %td
+      %td= number_to_currency(@order.total, :unit => "&pound;")
+
+    .button
+      = f.submit 'Update Basket'
+
+  - form_tag :action => 'place_order', :only_path => false, :protocol => 'https' do
+
+    %p I have read, understood, and accept the <%= link_to 'terms and conditions', :controller => 'legal', :action => 'index'%><%= check_box_tag 'accept' %>
+
+    .button
+      = submit_tag 'Proceed to Checkout', :name => 'standard'
+      %p or
+      = image_submit_tag 'https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif', :name => 'express'
+

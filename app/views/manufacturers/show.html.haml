@@ -1,0 +1,21 @@
+- title "Manufacturer"
+
+%p
+  %strong Name:
+  =h @manufacturer.name
+%p
+  %strong Telephone:
+  =h @manufacturer.telephone
+%p
+  %strong Contact:
+  =h @manufacturer.contact
+%p
+  %strong Account:
+  =h @manufacturer.account
+
+%p
+  = link_to "Edit", edit_manufacturer_path(@manufacturer)
+  |
+  = link_to "Destroy", @manufacturer, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", manufacturers_path

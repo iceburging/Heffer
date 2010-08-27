@@ -1,0 +1,15 @@
+- title "Country"
+
+%p
+  %strong Name:
+  =h @country.name
+%p
+  %strong Iso Code:
+  =h @country.iso_code
+
+%p
+  = link_to "Edit", edit_country_path(@country)
+  |
+  = link_to "Destroy", @country, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", countries_path

@@ -1,0 +1,24 @@
+#action_info
+  %h4 Items Ordered
+
+  %table
+    %tr
+      %th Item
+      %th Quantity
+      %th Price
+      %th Value
+
+    - @order.cart.items.each do |item|
+      %tr
+        %td= item.title
+        %td= item.quantity
+        %td= number_to_currency(item.option.product_line.price, :unit => "&pound;")
+        %td= number_to_currency(item.value, :unit => "&pound;")
+
+#action_instructions
+
+  %p Check items ordered against stock and supllier availability then accept or reject this order.
+
+  = button_to 'Collect Payment', {:action => 'capture', :id => @order.id}, {:confirm => "#{number_to_currency(@order.total, :unit => "&pound;")} will be captured from the customer. Continue?"}
+  = button_to 'Void Order', {:action => 'void', :id => @order.id}, {:confirm => 'This order will be cancelled. Please contact the customer to explain why. Continue?'}
+

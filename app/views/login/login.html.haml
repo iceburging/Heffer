@@ -1,0 +1,13 @@
+- title "Login"
+
+%p Please log in
+
+- form_tag :id => '' do
+  %label(for="name") Name:
+  = text_field_tag :name, params[:name]
+
+  %label(for="password") Password:
+  = password_field_tag :password, params[:password]
+
+  = submit_tag "Login"
+

@@ -1,0 +1,38 @@
+- semantic_form_for @product_line do |form|
+  - form.inputs :name => 'Product Information' do
+    = form.input :manufacturer, :label => 'Manufacturer', :hint => 'the manufacturer of this product (public)'
+    = form.input :mfr_prod_no, :label => 'Mfr Prod No', :hint => 'the manufacturer\'s product number', :required => false
+    = form.input :notes, :label => 'Notes', :hint => 'any notes you wish to make', :required => false
+    = form.input :range, :label => 'Range', :hint => 'the range this item belongs to, used to link sets e.g. bra and knickers of same design (public)', :required => false
+    = form.input :name, :label => 'Name', :hint => 'the name of the product line (public)'
+    = form.input :description, :label => 'Description', :hint => 'content that appears in product details page you can use html or textile here (public)'
+    = form.input :price, :hint => 'the price displayed to the customer (public)'
+    = form.input :tag_line, :label => 'Tag Line', :hint => 'brief description shown on product search pages (public)'
+    = form.input :prod_no, :label => 'Prod No', :hint => "#{SITE_NAME.downcase} product number (public)"
+    = form.input :fabric, :label => 'Fabric', :hint => 'the fabric(s) used in this product highlighted on the product details page (public)'
+    = form.input :category, :label => 'Category', :hint => 'the category to whcih this product belongs (public)'
+    = form.input :flags, :hint => 'the flags that apply to this product line, use ctrl-click to select more than one flag'
+  - form.inputs :name => 'Options', :id => 'options' do
+    %table.invisible
+      %tr
+        %th size
+        %th colour
+        %th available?
+        %th remove?
+      - form.semantic_fields_for :options do |option_form|
+        %tr
+          %td= option_form.input :size, :label => false, :required => false
+          %td= option_form.input :colour, :label => false, :required => false
+          %td= option_form.input :available, :label => '', :required => false
+          %td= option_form.input :remove, :as => :boolean, :label => '', :required => false
+  - form.inputs  :name => 'Option Generator', :id => 'option_generator' do
+    - semantic_fields_for 'generator' do |g|
+      = g.input 'size_a', :label => 'Sizes (primary)', :hint => 'enter sizes seperated by a space e.g. 32 34 36'
+      = g.input 'size_b', :label => 'Sizes (secondry)', :hint => 'optional second size, enter sizes seperated by a space e.g. C D DD', :required => false
+      = g.input 'colour', :label => 'Colours', :hint => 'enter colours seperated by a space e.g. White Ivory/Gold Black'
+      = g.input 'available', :as => :boolean, :hint => 'dictates whether items are available to the public or not'
+      - form.buttons do
+        = form.commit_button 'Add Options'
+        = form.commit_button 'Replace Options'
+  = form.buttons
+

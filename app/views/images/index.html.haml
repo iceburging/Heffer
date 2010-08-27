@@ -1,0 +1,27 @@
+- title "Images"
+
+%p Here are the site images that have been added to the system.
+
+%table.interactive_table
+  %thead
+    %tr
+      %th Title
+      %th Tag
+      %th Image
+      %th{:colspan => '3'} Actions
+  %tbody
+    - for image in @images
+      %tr
+        %td= h image.title
+        %td= h image.tag
+        %td= image_tag thumb_image_path(image,:format => :png)
+
+        %td= link_to 'Edit', edit_image_path(image)
+        %td= link_to 'Show', image
+        %td= link_to 'Destroy', image, :confirm => 'Are you sure?', :method => :delete
+
+
+%p
+  %strong Choices:
+  = link_to "New Image", new_image_path
+

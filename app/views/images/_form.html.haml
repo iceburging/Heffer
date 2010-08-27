@@ -1,0 +1,7 @@
+- semantic_form_for @image, :html => { :multipart => true } do |form|
+  - form.inputs do
+    = form.input :title, :hint => 'a title that is shown if the image cannot be displayed for some reason or if a customer hovers over the image'
+    = form.input :tag, :hint => 'a tag that is used to insert this image into a page, should be unique'
+    = form.input :image_file, :as => :file, :hint => 'the location of the image you wish to upload'
+  = form.buttons
+

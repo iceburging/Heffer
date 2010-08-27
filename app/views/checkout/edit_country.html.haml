@@ -1,0 +1,9 @@
+- title "Checkout"
+
+%p Please enter the country you would like your chosen products to be shipped to so that we can calulate the postage and show you the cart.
+
+- form_for :order, :url => '/checkout/update_order', :html => {:id => 'country_select'} do |f|
+    = f.select :delivery_country, options_from_collection_for_select(get_active_countries,'name','name',@country), :include_blank => true
+    = f.submit 'Go'
+%p If your country is not in the list and you wish to make a purchase please email or phone us and we will see what we can do to help.
+

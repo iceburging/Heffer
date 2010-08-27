@@ -1,0 +1,21 @@
+- title "Users"
+
+%p Here are the users who currently have access to this private area.
+
+%table.interactive_table
+  %thead
+    %tr
+      %th Name
+      %th{:colspan => '3'} Actions
+  %tbody
+    - for user in @users
+      %tr
+        %td= h user.name
+        %td= link_to 'Show', user
+        %td= link_to 'Edit', edit_user_path(user)
+        %td= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete
+
+%p
+  %strong Choices:
+  = link_to "New User", new_user_path
+

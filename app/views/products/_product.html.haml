@@ -1,0 +1,12 @@
+.product_in_list
+  .image_area
+    = insert_product_thumbnail(product)
+  .headline_area
+    %h1.title= product.name.titleize
+    %h2.by by
+    %h2.manufacturer= product.manufacturer.name.titleize unless product.manufacturer.nil?
+    %p.price #{number_to_currency(product.price,:unit => "&pound;")}
+    %p.more= link_to 'more details >>', {:controller => 'products', :action => 'details', :id => product.id }
+  .info_area
+    %p.tag_line= product.tag_line
+

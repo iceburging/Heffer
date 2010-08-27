@@ -1,0 +1,59 @@
+- title "Completed Orders"
+
+- if @dispatched.count.zero? && @refunded.count.zero? && @voided.count.zero?
+  %p Sorry no completed orders to display
+
+#dispatched_orders
+  - unless @dispatched.count.zero?
+    %h2 Dispatched
+    %p These orders have been dispatched and can be refunded if required
+    %table.interactive_table
+      %thead
+        %tr
+          %th Date Dispatched
+          %th Order Number
+          %th{:colspan =>'2'} Actions
+      %tbody
+        - @dispatched.each do |order|
+          %tr
+            %td= order.dispatch_called_at.strftime('%d/%m/%y')
+            %td= order.order_number
+            %td #{link_to 'Details', order}
+            %td #{link_to 'Invoice', order_path(order, :format => 'pdf')}
+
+#refunded_orders
+  - unless @refunded.count.zero?
+    %h2 Refunded
+    %p These orders have been either partially or fully refunded
+    %table.interactive_table
+      %thead
+        %tr
+          %th Date Refunded
+          %th Order Number
+          %th{:colspan =>'2'} Actions
+      %tbody
+        - @refunded.each do |order|
+          %tr
+            %td= order.credit_called_at.strftime('%d/%m/%y')
+            %td= order.order_number
+            %td #{link_to 'Details', order}
+            %td #{link_to 'Invoice', order_path(order, :format => 'pdf')}
+
+#voided_orders
+  - unless @voided.count.zero?
+    %h2 Voided
+    %p These are the orders you have chosen to void rather than accept
+    %table.interactive_table
+      %thead
+        %tr
+          %th Date Voided
+          %th Order Number
+          %th{:colspan =>'2'} Actions
+      %tbody
+        - @voided.each do |order|
+          %tr
+            %td= order.void_called_at.strftime('%d/%m/%y')
+            %td= order.order_number
+            %td= link_to 'Details', order
+            %td= link_to 'Destroy', order, :confirm => 'Are you sure?', :method => :delete
+

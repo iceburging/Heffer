@@ -1,0 +1,67 @@
+%html
+  %body
+
+    %p Dear #{@order.billing_firstname}
+
+    %p Thank you for placing an order (#{@order.order_number}) with #{SITE_NAME}. Please check the details below to ensure that they are correct as we will be unable to make any changes to the order once it has been processed. Acceptance of your order takes place when it is dispatched at which time your nominated account will be debited with the total amount of #{number_to_currency(@order.total,:unit => "&pound;")}
+
+    %p Your order details are as follows:
+
+    %table
+      %tr
+        %th{:style => 'text-align: left; border-bottom: solid 1px #CCCCCC;'} Item
+        %th{:style => 'text-align: left; border-bottom: solid 1px #CCCCCC;'} Quantity
+        %th{:style => 'text-align: left; border-bottom: solid 1px #CCCCCC;'} Price Each
+
+      - @order.cart.items.each do |item|
+        %tr
+          %td= item.title
+          %td= item.quantity
+          %td= number_to_currency(item.option.product_line.price, :unit=>"&pound;")
+
+      %tr
+        %td
+        %td
+        %th{:style => 'border-bottom: solid 1px #CCCCCC; text-align: left;'} Subtotal
+
+      %tr
+        %td
+        %td
+        %td= number_to_currency(@order.subtotal, :unit => "&pound;")
+
+      %tr
+        %th{:style => 'border-bottom: solid 1px #CCCCCC; text-align: left;', :colspan => '3'} Shipping Method
+
+      %tr
+        %td
+        %td= @order.shipping_method.name
+        %td= number_to_currency(@order.shipping_method.price, :unit=>"&pound;")
+
+      %tr
+        %td
+        %td
+        %th{:style => 'border-bottom: solid 1px #CCCCCC; text-align: left;'} Total
+
+      %tr
+        %td
+        %td
+        %td= number_to_currency(@order.total, :unit=>"&pound;")
+
+
+    %p The order is being billed to:
+    = insert_address(@order.billing_address)
+
+    %p The order is being delivered to:
+    = insert_address(@order.delivery_address)
+
+    %p You will be notified again when your order has been dispatched.
+
+    %p If you need to contact us about your order please email us at #{mail_to('orders@'+DOMAIN, 'orders@'+DOMAIN)} quoting your customer order number (#{@order.order_number}).
+
+    %p
+      %b Best wishes
+    %p
+      %b= SIGNEE_NAME
+    %p
+      %b= SIGNEE_POSITION + ', ' + SIGNEE_NAME
+

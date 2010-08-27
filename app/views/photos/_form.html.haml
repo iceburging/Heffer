@@ -1,0 +1,8 @@
+- semantic_form_for @photo, :html => { :multipart => true } do |form|
+  - form.inputs do
+    = form.input :title, :hint => 'a title that is shown if the image cannot be displayed for some reason or if a customer hovers over the image'
+    = form.input :position, :hint => 'dictates the order in which the pictures are displayed to the user (lowest first)'
+    = form.input :image_file, :as => :file, :hint => 'the location of the photo you wish to upload'
+    = form.input :product_line, :hint => 'the product line that should display this image'
+  = form.buttons
+

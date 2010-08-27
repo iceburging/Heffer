@@ -1,0 +1,18 @@
+- title "News Item"
+
+.news_item
+  .postdate
+    .month{:class => "m-#{@news_item.created_at.strftime('%m')}"}= @news_item.created_at.strftime('%B')
+    .day{:class => "d-#{@news_item.created_at.strftime('%d')}"}= @news_item.created_at.strftime('%d')
+    .year{:class => "y-#{@news_item.created_at.strftime('%Y')}"}= @news_item.created_at.strftime('%Y')
+
+  %h2=h @news_item.title
+  = RedCloth.new(@news_item.content)
+
+%p
+  = link_to "Edit", edit_news_item_path(@news_item)
+  |
+  = link_to "Destroy", @news_item, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", news_items_path
+

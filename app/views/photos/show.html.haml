@@ -1,0 +1,9 @@
+- title "Photo"
+
+%p
+  %strong Title:
+  =h @photo.title
+%p
+  %strong Image:
+  = image_tag photo_path(@photo, :format => :jpg)
+

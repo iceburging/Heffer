@@ -1,0 +1,23 @@
+- title "Countries"
+
+%p Here are the countries that are available for use within the system, if you find you need access to a country not yet listed below then please add it. Countries are used to control the vaild destinations for a specified shipping method to prevent customers selecting incorrect shipping methods for a chosen destination.
+
+%table.interactive_table
+  %thead
+    %tr
+      %th Name
+      %th Iso code
+      %th{:colspan => '3'} Actions
+  %tbody
+    - for country in @countries
+      %tr
+        %td= h country.name
+        %td= h country.iso_code
+        %td= link_to 'Show', country
+        %td= link_to 'Edit', edit_country_path(country)
+        %td= link_to 'Destroy', country, :confirm => 'Are you sure?', :method => :delete
+
+%p
+  %strong Choices:
+  = link_to "New Country", new_country_path
+

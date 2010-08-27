@@ -1,0 +1,2 @@
+<li <%= "id='selected_sub_menu'" if sub_menu.permalink == params[:permalink] %> ><%= link_to sub_menu.title.humanize, static_path(:menu_entry => params[:menu_entry], :permalink => sub_menu.permalink) %></li>
+

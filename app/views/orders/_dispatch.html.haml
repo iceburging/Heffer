@@ -1,0 +1,13 @@
+#action_info
+
+  %h4 Shipping Method
+
+  %p Name: #{@order.try(:shipping_method).try(:name)}
+  %p Price:  #{number_to_currency(@order.try(:shipping_method).try(:price), :unit => "&pound;")}
+
+#action_instructions
+
+  %p Prepare items for dispatch, print the #{link_to 'invoice', order_path(@order, :format => 'pdf')} and dispatch via chosen shipping method to the delivery address. Click dispatch button to notify customer of order dispatch.
+
+  = button_to 'Dispatch Order', {:action => 'dispatch', :id => @order.id}, {:confirm => "The customer will be contacted to let them know thier order is on it's way. Continue?"}
+

@@ -1,0 +1,5 @@
+one:
+  name: MyUser
+  salt: salty
+  password_hash: <%= User.encrypted_password('secret' , 'salty') %>
+

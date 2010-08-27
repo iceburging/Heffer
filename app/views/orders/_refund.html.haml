@@ -1,0 +1,69 @@
+#action_info
+  %h4 Items Ordered
+
+  %table
+    %tr
+      %th Item
+      %th Quantity
+      %th Price
+      %th Value
+
+    - @order.cart.items.each do |item|
+      %tr
+        %td= item.title
+        %td= item.quantity
+        %td= number_to_currency(item.option.product_line.price, :unit => "&pound;")
+        %td= number_to_currency(item.value, :unit => "&pound;")
+
+    %tr
+      %td
+      %td
+      %td
+      %th Subtotal
+
+    %tr
+      %td
+      %td
+      %td
+      %td= number_to_currency(@order.subtotal, :unit => "&pound;")
+
+    %tr
+      %th{:colspan=>4} Shipping Method
+
+    %tr
+      %td
+      %td{:colspan=>2}= @order.shipping_method.try(:name)
+      %td= number_to_currency((@order.shipping_method.try(:price) || 0), :unit => "&pound;")
+
+    -unless @order.discount_value.blank?
+      %tr
+        %th{:colspan=>4} Discount
+
+      %tr
+        %td
+        %td{:colspan=>2}= @order.discount_description
+        %td= number_to_currency(@order.discount_value, :unit => "&pound;")
+
+    %tr
+      %td
+      %td
+      %td
+      %th Total
+
+    %tr
+      %td
+      %td
+      %td
+      %td= number_to_currency(@order.total, :unit => "&pound;")
+
+#action_instructions
+
+  %p If returned items are received in a saleable condition then refund the customer according to the prices displayed <b>on this page</b>
+
+  - form_tag url_for(:action => 'refund', :id => @order.id) do
+    = label_tag 'amount', 'Make a refund of: &pound;'
+    = text_field_tag 'amount'
+    = submit_tag 'Refund', {:confirm => "The customer will be refunded by the amount specified. Continue?"}
+
+  %p (Maximum refund #{number_to_currency(@order.value,:unit=>"&pound;")})
+

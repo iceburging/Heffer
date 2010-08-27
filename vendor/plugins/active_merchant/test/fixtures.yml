@@ -1,0 +1,10 @@
+payflow:
+  login: LOGIN
+  password: PASSWORD
+  partner: PayPal
+
+payflow_uk:
+  login: LOGIN
+  password: PASSWORD
+  partner: PayPalUk
+

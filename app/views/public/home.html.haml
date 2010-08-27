@@ -1,0 +1,14 @@
+- title "Welcome to #{SITE_NAME}"
+
+- if @homepage.nil?
+
+  %p= "Exciting words from #{SIGNEE_POSITION.downcase}"
+
+- else
+
+  = RedCloth.new(@homepage.content).to_html(:refs_site_reference)
+
+- unless @news_items.empty?
+  %h2 News
+  = render :partial => 'news_item', :collection => @news_items
+

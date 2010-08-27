@@ -1,0 +1,6 @@
+.item
+  = insert_product_thumbnail(item)
+  %h4= item.name
+  %p= item.tag_line
+  %p.more= link_to 'more details >>', {:controller => 'products', :action => 'details', :id => item.id}
+

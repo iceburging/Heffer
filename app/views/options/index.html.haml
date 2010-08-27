@@ -1,0 +1,20 @@
+- title "Options"
+
+%table
+  %tr
+    %th Product line
+    %th Size
+    %th Colour
+    %th Available
+  - for option in @options
+    %tr
+      %td= h option.product_line
+      %td= h option.size
+      %td= h option.colour
+      %td= h option.available
+      %td= link_to 'Show', option
+      %td= link_to 'Edit', edit_option_path(option)
+      %td= link_to 'Destroy', option, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Option", new_option_path
+

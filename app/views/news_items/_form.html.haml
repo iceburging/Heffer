@@ -1,0 +1,6 @@
+- semantic_form_for @news_item do |form|
+  - form.inputs do
+    = form.input :title, :label => 'Title', :hint => 'a snappy title to get the attention of the customer'
+    = form.input :content, :label => 'Content', :hint => 'the news that you wish to convey (supports textile)'
+  = form.buttons
+

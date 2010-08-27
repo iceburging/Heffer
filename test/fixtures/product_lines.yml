@@ -1,0 +1,26 @@
+one:
+  manufacturer:
+  category:
+  mfr_prod_no: MyString
+  notes: MyText
+  range: MyString
+  name: MyString
+  description: MyText
+  tag_line: MyText
+  prod_no: MyString
+  fabric: MyString
+  price: 9.99
+
+two:
+  manufacturer:
+  category:
+  mfr_prod_no: MyString
+  notes: MyText
+  range: MyString
+  name: MyString
+  description: MyText
+  tag_line: MyText
+  prod_no: MyString
+  fabric: MyString
+  price: 9.99
+

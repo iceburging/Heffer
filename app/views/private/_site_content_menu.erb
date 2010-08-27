@@ -1,0 +1,5 @@
+<li <%= "id='selected_sub_menu'" if controller.controller_name == 'news_items' %>><%= link_to 'News', :controller => 'news_items' %></li>
+<li <%= "id='selected_sub_menu'" if controller.controller_name == 'menu_entries' %>><%= link_to 'Menu Entries', :controller => 'menu_entries' %></li>
+<li <%= "id='selected_sub_menu'" if controller.controller_name == 'pages' %>><%= link_to 'Pages', :controller => 'pages' %></li>
+<li <%= "id='selected_sub_menu'" if controller.controller_name == 'photos' %>><%= link_to 'Images', :controller => 'images' %></li>
+

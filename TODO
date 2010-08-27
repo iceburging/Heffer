@@ -1,0 +1,5 @@
+Add image caching
+Add info popups for 3d secure use skip_before_filter :authenticate, :only => [] to skip admin checks for public help topics.
+Add create new order capability in admin area
+Check site under IE 6 7 8 and FF 2 3
+

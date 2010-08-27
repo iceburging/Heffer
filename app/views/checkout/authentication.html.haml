@@ -1,0 +1,6 @@
+-title 'Cardholder Authentication'
+%p Your card is enrolled in an authentication program (e.g. Verified by Visa, MasterCard SecureCode or JCB J/Secure payer). For your security, please fill out the form below to complete your order. Do not click the refresh or back button or this transaction may be interrupted or cancelled.
+%p{:id => 'iframe_align'}
+  %iframe{:src => url_for(:controller => 'checkout', :action => 'authentication_send', :only_path => false), :width => "400", :height => "400", :name => "auth_frame"}
+    %p Sorry your browser does not support iframes. Please use a browser that does. Or call us with your order. Thankyou.
+

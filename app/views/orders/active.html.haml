@@ -1,0 +1,77 @@
+- title "Active Orders"
+
+- if @checked.count.zero? && @authenticated.count.zero? && @authorized.count.zero? && @captured.count.zero?
+  %p Sorry no active orders to display
+
+- unless @checked.count.zero?
+  #enrollment_checked_orders
+    %h2 Checked
+    %p These orders have been checked for enrollment in an authentication scheme, but for some reason have progressed no further.
+    %table.interactive_table
+      %thead
+        %tr
+          %th Date Enrollment Checked
+          %th Order Number
+          %th{:colspan =>'2'} Actions
+      %tbody
+        - @checked.each do |order|
+          %tr
+            %td= order.enrollment_check_called_at.strftime('%d/%m/%y')
+            %td= order.order_number
+            %td= link_to 'Details', order
+            %td= link_to 'Destroy', order, :confirm => 'Are you sure?', :method => :delete
+
+- unless @authenticated.count.zero?
+  #authenticated_orders
+    %h2 Authenticated
+    %p These orders have been authenticated using an authentication scheme, but for some reason have progressed no further.
+    %table.interactive_table
+      %thead
+        %tr
+          %th Date Authenticated
+          %th Order Number
+          %th{:colspan =>'2'} Actions
+      %tbody
+        - @authenticated.each do |order|
+          %tr
+            %td= order.authenticate_called_at.strftime('%d/%m/%y')
+            %td= order.order_number
+            %td= link_to 'Details', order
+            %td= link_to 'Destroy', order, :confirm => 'Are you sure?', :method => :delete
+
+- unless @authorized.count.zero?
+  #authorized_orders
+    %h2 Authorized
+    %p These orders have been authorised and can be accepted!
+    %table.interactive_table
+      %thead
+        %tr
+          %th Date Authorized
+          %th Order Number
+          %th{:colspan =>'2'} Actions
+      %tbody
+        - @authorized.each do |order|
+          %tr
+            %td= order.authorize_called_at.strftime('%d/%m/%y')
+            %td= order.order_number
+            %td= link_to 'Details', order
+            %td
+
+- unless @captured.count.zero?
+  #captured_orders
+    %h2 Captured
+    %p These orders have been captured and can be dispatched when ready.
+    %table.interactive_table
+      %thead
+        %tr
+          %th Date Captured
+          %th Order Number
+          %th{:colspan =>'2'} Actions
+      %tbody
+        - @captured.each do |order|
+          %tr
+            %td= order.capture_called_at.strftime('%d/%m/%y')
+            %td= order.order_number
+            %td #{link_to 'Details', order}
+            %td #{link_to 'Invoice', order_path(order, :format => 'pdf')}
+

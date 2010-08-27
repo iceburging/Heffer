@@ -1,0 +1,17 @@
+- title "Delivery Details"
+
+%p Please enter your delivery details
+
+- semantic_form_for @order, :url => { :action => 'update_delivery_details', :only_path => false, :protocol => get_secure_protocol } do |form|
+  - form.inputs do
+    = form.input :delivery_firstname, :label => 'Firstname', :hint => 'the recipient\'s first name'
+    = form.input :delivery_lastname, :label => 'Lastname', :hint => 'the recipient\'s surname'
+    = form.input :delivery_line1, :label => 'Line 1', :hint => 'the first line of the recipient\'s address'
+    = form.input :delivery_line2, :label => 'Line 2', :hint => 'the second line of the recipient\'s address', :required => false
+    = form.input :delivery_town, :label => 'Town', :hint => 'the city/town/village of the recipient\'s address', :required => false
+    = form.input :delivery_county, :label => 'County', :hint => 'the county of the recipient\'s address'
+    = form.input :delivery_country, :label => 'Country', :as => 'select', :collection => get_active_countries.map{|c| c.name}, :input_html => {:disabled => true}, :hint => 'the country of the recipient\'s address'
+    = form.input :delivery_postcode, :label => 'Postcode', :hint => 'the postcode for delivery'
+  - form.buttons do
+    = form.commit_button 'Continue'
+

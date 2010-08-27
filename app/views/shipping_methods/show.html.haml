@@ -1,0 +1,15 @@
+- title "Shipping Method"
+
+%p
+  %strong Name:
+  =h @shipping_method.name
+%p
+  %strong Price:
+  =h @shipping_method.price
+
+%p
+  = link_to "Edit", edit_shipping_method_path(@shipping_method)
+  |
+  = link_to "Destroy", @shipping_method, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", shipping_methods_path

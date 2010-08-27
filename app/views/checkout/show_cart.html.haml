@@ -1,0 +1,74 @@
+- title "Your Basket"
+%h2{:id=>'shipping_to_header_checkout'}= "(Shipping to #{@order.delivery_country})"
+%h3{:id=>'shipping_to_change_link_checkout'}= link_to 'change', :action => 'edit_country'
+
+- form_for @order, :url => { :action => 'update_order' } do |f|
+  = f.error_messages
+
+  %table{:id=>'show_cart'}
+    %tr
+      %th{:class=>'underline'} Item
+      %th{:class=>'underline'} Quantity
+      %th{:class=>'last_cell underline'} Price
+
+    - @order.cart.items.each_with_index do |item,index|
+      - fields_for "cart[items][]", item, :index => nil do |item_fields|
+
+        %tr
+          %td{:class=>'item'}
+            = item.title
+            = hidden_field_tag 'cart[items][][option_id]', item.option.id
+            = link_to 'view ...', product_details_path(item.option.product_line)
+          %td{:class=>'quantity'}
+            = item_fields.text_field :quantity
+            = link_to 'remove', {:action => 'remove_from_cart', :id => item.option.id}, :method => :put
+          %td{:class=>'last_cell'}= number_to_currency(item.option.product_line.price, :unit => "&pound;")
+
+    %tr
+      %td
+      %td
+      %th{:class=>'last_cell underline'} Subtotal
+
+    %tr
+      %td
+      %td
+      %td{:class=>'last_cell'}= number_to_currency(@order.subtotal, :unit => "&pound;")
+
+    %tr
+      %th{:class=>'underline last_cell', :colspan=>'3'} Shipping Method
+
+    %tr
+      %td{:class=>'right_cell highlight'}= 'Please select a shipping method >>' if @order.shipping_method.nil?
+      %td= f.select :shipping_method, options_from_collection_for_select(get_valid_shipping_methods,'id','name',@order.shipping_method.try(:id)), :include_blank => true
+      %td{:class=>'last_cell'}= number_to_currency((@order.shipping_method.try(:price) || 0), :unit => "&pound;")
+
+    %tr
+      %td
+      %td
+      %th{:class=>'underline'} Total
+
+    %tr
+      %td
+      %td
+      %td{:class=>'last_cell'}= number_to_currency(@order.total, :unit => "&pound;")
+
+    %tr{:class=>'padding'}
+      %td{:colspan => '3'}
+
+    %tr
+      %td Once you have selected your shipping method and/or made any changes to the basket please click the 'Update Basket' button to the right so that we can recalculate the price and update your order. Thanks.
+      %td{:colspan => '2'}
+        .button
+          = f.submit 'Update Basket'
+
+- form_tag :action => 'payment_method', :only_path => false, :protocol => get_secure_protocol do
+
+  %p
+    = "I have read, understood, and accept the #{@legal.nil? ? 'terms and conditions' : link_to('terms and conditions', static_path(@legal.menu_entry.permalink,@legal.permalink))}"
+    = check_box_tag 'accept'
+
+  .button
+    = submit_tag 'Proceed to Checkout', :name => 'standard'
+    %p or
+    = image_submit_tag 'https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif', :name => 'express', :alt => 'Proceed to Paypal Express Checkout'
+

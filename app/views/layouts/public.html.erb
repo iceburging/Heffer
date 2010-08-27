@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title><%= SITE_NAME %>: <%= h(yield(:title) || "Untitled") %></title>
+    <%= stylesheet_link_tag 'application' %>
+    <%= stylesheet_link_tag 'formtastic' %>
+    <%= stylesheet_link_tag 'jquery-ui' %>
+    <%= stylesheet_link_tag 'formtastic_changes' %>
+    <%= stylesheet_link_tag 'custom' %>
+    <%= javascript_include_tag :all, :recursive => true %>
+    <%= yield(:head) %>
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-12351828-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+  <div class="wrapper public_content">
+      <div id="top_bar_wrapper">
+        <div id="top_bar">
+          <%= render :partial => 'orders/mini_cart' %>
+          <%= link_to insert_site_image('logo'), '/' %>
+          <%= link_to insert_site_image('strapline',:id => 'strapline'), '/' %>
+          <p id="call_us">Call us on: 07794 256 564</p>
+        </div>
+      </div>
+
+      <div id='menu'>
+        <ul>
+          <li id=<%= (@controller.controller_name == 'public' && @controller.action_name == 'home') ? 'menu_start_selected_menu' : 'menu_start' %>><%= link_to '', '/' %></li>
+          <li><%= link_to 'Products', :controller => 'products', :action => 'list' %></li>
+          <%= insert_menu %>
+          <li id='menu_end'><%= link_to 'Checkout', :controller => 'checkout', :action => 'show_cart' %></li>
+        </ul>
+      </div>
+
+      <div id='sub_menu'>
+        <ul>
+          <li id="sub_menu_tag">Explore More:</li>
+          <%= insert_public_sub_menu %>
+        </ul>
+      </div>
+
+      <div id="content">
+        <%- flash.each do |name, msg| -%>
+          <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <%- end -%>
+
+        <%- if show_title? -%>
+          <h1><%=h yield(:title) %></h1>
+        <%- end -%>
+
+        <%= yield %>
+      </div>
+
+      <div class="push"></div>
+    </div>
+    <div class="footer">
+      <div id="bottom_bar">
+          <% insert_bottom_bar %>
+      </div>
+    </div>
+  </body>
+</html>
+

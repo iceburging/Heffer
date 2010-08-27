@@ -1,0 +1,28 @@
+- title "Pages"
+
+%p Here are the pages, grouped according to the menu entry under which they appear, that are visible to the public.
+%p The special pages entitled: legal, contact, and privacy will appear as links in the bar at the bottom of the website if they exist.
+
+- @pages.group_by(&:menu_entry).each do |menu_entry,pages|
+
+  %h2= menu_entry.try(:title) || 'Special'
+
+  %table.interactive_table
+    %thead
+      %tr
+        %th Position
+        %th Title
+        %th{:colspan => '2'} Actions
+    %tbody
+      - for page in pages
+        %tr
+          %td= h page.position
+          %td= h page.title
+
+          %td= link_to 'Edit', edit_page_path(page)
+          %td= link_to 'Destroy', page, :confirm => 'Are you sure?', :method => :delete
+
+%p
+  %strong Choices:
+  = link_to "New Page", new_page_path
+

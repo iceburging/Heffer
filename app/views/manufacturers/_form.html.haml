@@ -1,0 +1,8 @@
+- semantic_form_for @manufacturer do |form|
+  - form.inputs do
+    = form.input :name, :hint => 'the name of the manufacturer (seen by the public)'
+    = form.input :telephone, :hint => 'a telephone contact number for this company', :required => false
+    = form.input :contact, :hint => 'the name of the account manager/contact at this company', :required => false
+    = form.input :account, :hint => 'the account name/number at this company', :required => false
+  = form.buttons
+

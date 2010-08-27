@@ -1,0 +1,7 @@
+- semantic_form_for @shipping_method do |form|
+  - form.inputs do
+    = form.input :name, :label => 'Name', :hint => 'the name displayed to the public'
+    = form.input :price, :label => 'Price', :hint => 'the price charged'
+    = form.input :countries, :label => 'Countries', :hint => 'the countries this method is valid for, ctrl-click to select multiple countries'
+  = form.buttons
+

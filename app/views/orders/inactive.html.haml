@@ -1,0 +1,24 @@
+- title "Inactive Orders"
+
+- if @inactive.count.zero?
+  %p Sorry no inactive orders to display
+
+- unless @inactive.count.zero?
+  %h2 Inactive
+  %p These orders have been marked as inactive.
+  %table.interactive_table
+    %thead
+      %tr
+        %th Date Created
+        %th Order Number
+        %th Status
+        %th{:colspan => '2'}
+    %tbody
+      - @inactive.each do |order|
+        %tr
+          %td= order.created_at.strftime('%d/%m/%y')
+          %td= order.order_number
+          %td= order.status
+          %td= link_to 'Details', order
+          %td= link_to 'Destroy', order, :confirm => 'Are you sure?', :method => :delete
+

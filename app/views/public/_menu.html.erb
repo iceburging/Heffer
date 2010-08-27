@@ -1,0 +1,4 @@
+<%- if menu.permalink %>
+  <li <%= "id='selected_menu'" if menu.permalink == params[:menu_entry] %> ><%= link_to menu.title.capitalize, static_path(:menu_entry => menu.permalink) %></li>
+<%- end %>
+

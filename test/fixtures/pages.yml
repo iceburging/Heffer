@@ -1,0 +1,9 @@
+one:
+  menu_entry_id: 1
+  title: MyString
+  content: MyText
+
+two:
+  menu_entry_id: 1
+  title: MyString
+  content: MyText

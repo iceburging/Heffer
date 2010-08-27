@@ -1,0 +1,19 @@
+- title "Flag"
+
+%p
+  %strong Position:
+  =h @flag.position
+%p
+  %strong Title:
+  =h @flag.title
+%p
+  %strong Blurb:
+  =h @flag.blurb
+
+%p
+  = link_to "Edit", edit_flag_path(@flag)
+  |
+  = link_to "Destroy", @flag, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", flags_path
+

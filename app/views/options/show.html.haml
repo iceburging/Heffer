@@ -1,0 +1,22 @@
+- title "Option"
+
+%p
+  %strong Product Line:
+  =h @option.product_line
+%p
+  %strong Size:
+  =h @option.size
+%p
+  %strong Colour:
+  =h @option.colour
+%p
+  %strong Available:
+  =h @option.available
+
+%p
+  = link_to "Edit", edit_option_path(@option)
+  |
+  = link_to "Destroy", @option, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", options_path
+

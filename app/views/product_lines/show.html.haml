@@ -1,0 +1,47 @@
+- title "Product Line"
+
+%p
+  %strong Manufacturer:
+  =h @product_line.manufacturer.try(:name)
+%p
+  %strong Mfr Prod No:
+  =h @product_line.mfr_prod_no
+%p
+  %strong Name:
+  =h @product_line.name
+%p
+  %strong Category:
+  =h @product_line.category.try(:title).try(:titleize)
+%p
+  %strong Prod No:
+  =h @product_line.prod_no
+%p
+  %strong Tag Line:
+  =h @product_line.tag_line
+%p
+  %strong Description:
+  =h @product_line.description
+%p
+  %strong Price:
+  = number_to_currency(@product_line.price,:unit => '&pound;')
+%p
+  %strong Fabric:
+  =h @product_line.fabric
+%p
+  %strong Range:
+  =h @product_line.range
+%p
+  %strong Notes:
+  =h @product_line.notes
+%p
+  %strong Images:
+  - @product_line.photos.each do |photo|
+    = link_to image_tag(thumb_photo_path(photo, :format => :jpg), {:class => "product_lines_show", :alt => photo.try(:title)}), photo_path(photo)
+%p
+  %strong Choices:
+  = link_to "Edit", edit_product_line_path(@product_line)
+  |
+  = link_to "Destroy", @product_line, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", product_lines_path
+

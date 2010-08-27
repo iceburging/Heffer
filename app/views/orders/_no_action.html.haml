@@ -1,0 +1,5 @@
+%p There are no actions left to perform on this order.
+
+- if @order.status == 'credited'
+  %p Refund Information: #{number_to_currency(@order.order_credit,:unit => "&pound;")} of this order has been refunded resulting in a value of #{number_to_currency(@order.value,:unit => "&pound;")}.
+

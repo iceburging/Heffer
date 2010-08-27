@@ -1,0 +1,7 @@
+- semantic_form_for @category do |form|
+  - form.inputs do
+    = form.input :position, :label => 'Position', :hint => 'used to control the ordering of categories on the product page (lowest value shown first)'
+    = form.input :title, :label => 'Title', :hint => 'the title of the category as seen by the public (lowercase please)'
+    = form.input :blurb, :label => 'Blurb', :hint => 'displayed to the public to describe the category', :required => false
+  = form.buttons
+

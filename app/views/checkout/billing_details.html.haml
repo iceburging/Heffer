@@ -1,0 +1,37 @@
+- title "Billing Details"
+
+%p Please enter your billing details.
+
+- semantic_form_for @order, :url => { :action => 'update_billing_details', :only_path => false, :protocol => get_secure_protocol } do |form|
+  - form.inputs do
+    = form.input :billing_email, :label => 'Email', :hint => 'your email address so that we can contact you regarding the order if needed'
+    = form.input :billing_telephone_number, :label => 'Telephone Number', :hint => 'your phone number so that we can contact you regarding the order if needed'
+
+    = form.input :card_number, :label => 'Card Number', :hint => 'the 15/16 digit card number printed across the middle of your card'
+    = form.input :card_type, :label => 'Card Type', :collection => CARDTYPES, :hint => 'look for a symbol on your card that matches one of the types listed'
+    = form.input :card_start_date, :as => 'date', :label => 'Start Date', :order => [:month,:year], :include_blank => true, :hint => 'the start date printed on the front of your card, leave blank if not present', :required => false
+    = form.input :card_expiry_date, :as => 'date', :label => 'Expiry Date', :order => [:month, :year], :hint => 'the expiry date printed on the front of your card'
+    = form.input :card_verification_value, :label => 'CV2 Value', :hint => 'the last three digits printed in the signature strip on the back of your card'
+    = form.input :card_issue_number, :label => 'Issue Number', :hint => 'the issue number printed on the front of your card, leave blank if not present', :required => false
+
+    %p The billing address details have been copied across from the delivery details. If the billing address needs to be different please change it below, thanks.
+
+    = form.input :billing_firstname, :label => 'Firstname', :hint => 'the card holder\'s first name'
+    = form.input :billing_lastname, :label => 'Lastname', :hint => 'the card holder\'s surname'
+    = form.input :billing_line1, :label => 'Line 1', :hint => 'the first line of the card holder\'s address'
+    = form.input :billing_line2, :label => 'Line 2', :hint => 'the second line of the card holder\'s address', :required => false
+    = form.input :billing_town, :label => 'Town', :hint => 'the city/town/village of the card holder\'s address', :required => false
+    = form.input :billing_county, :label => 'County', :hint => 'the county of the card holder\'s address'
+    = form.input :billing_country, :label => 'Country', :as => 'select', :collection => Country.find(:all).map{|c| c.name}, :hint => 'the country of the card holder\'s address'
+    = form.input :billing_postcode, :label => 'Postcode', :hint => 'the postcode of the card holder'
+
+  - form.buttons do
+    = form.commit_button 'Place Order'
+
+%p If your card is enrolled in a cardholder authentication program then clicking the 'Place Order' button may redirect you to a page provided by your Card Issuer where you will be prompted to provide a password to complete your purchase. For more information on this process please click on the relevent logo below.
+
+%table{:id => 'learn_more'}
+  %tr
+    %td= link_to image_tag('site/verified_by_visa/vbv.gif'), {:controller => 'help', :action => 'verified_by_visa'}, {:popup => ['new_window_name', 'height=500,width=600'], :target => '_blank'}
+    %td= link_to image_tag('site/secure_code/sc.gif'), {:controller => 'help', :action => 'secure_code'}, {:popup => ['new_window_name', 'height=500,width=600'], :target => '_blank'}
+

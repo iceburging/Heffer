@@ -1,0 +1,17 @@
+%html(xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en")
+  %head
+    %meta(http-equiv="content-type" content="text/html;charset=UTF-8")/
+
+  %body#iframe_content
+    - form_tag  @acs_url, :name => 'autoform' do
+      = hidden_field_tag "PaReq", @pa_req
+      = hidden_field_tag "TermUrl", @term_url
+      = hidden_field_tag "MD", @order_id
+      %noscript
+        %h3 Processing your transaction
+        %p Javascript is currently disabled or is not supported by your browser. Please click continue.
+        = submit_tag 'Continue'
+
+    :javascript
+      document.autoform.submit();
+

@@ -1,0 +1,7 @@
+- semantic_form_for @user do |form|
+  - form.inputs do
+    = form.input :name, :label => 'Name', :hint =>  'the name of the user'
+    = form.input :password, :label => 'Password', :hint => 'the password for the user'
+    = form.input :password_confirmation, :label => 'Confirm Password', :hint => 'confirm the password for the user'
+  = form.buttons
+

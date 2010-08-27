@@ -1,0 +1,23 @@
+- title "Menu Entries"
+
+%p Here are the menu entries that will appear on the public pages of the website in addition to the 'products' and 'checkout' entries.
+
+%table.interactive_table
+  %thead
+    %tr
+      %th Title
+      %th Position
+      %th{:colspan => '3'} Actions
+  %tbody
+    - for menu_entry in @menu_entries
+      %tr
+        %td= h menu_entry.title
+        %td= h menu_entry.position
+        %td= link_to 'Show', menu_entry
+        %td= link_to 'Edit', edit_menu_entry_path(menu_entry)
+        %td= link_to 'Destroy', menu_entry, :confirm => 'Are you sure?', :method => :delete
+
+%p
+  %strong Choices:
+  = link_to "New Menu Entry", new_menu_entry_path
+

@@ -1,0 +1,23 @@
+- title "Shipping Methods"
+
+%p Here are the shipping methods currently available to the public.
+
+%table.interactive_table
+  %thead
+    %tr
+      %th Name
+      %th Price
+      %th{:colspan => '3'} Actions
+  %tbody
+    - for shipping_method in @shipping_methods
+      %tr
+        %td= h shipping_method.name
+        %td= h shipping_method.price
+        %td= link_to 'Show', shipping_method
+        %td= link_to 'Edit', edit_shipping_method_path(shipping_method)
+        %td= link_to 'Destroy', shipping_method, :confirm => 'Are you sure?', :method => :delete
+
+%p
+  %strong Choices:
+  = link_to "New Shipping Method", new_shipping_method_path
+

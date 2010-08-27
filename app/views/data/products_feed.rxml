@@ -1,0 +1,40 @@
+# setup
+xml.instruct! :xml, :version=>'1.0'
+xml.rss(:version=>"2.0", 'xmlns:g' => "http://base.google.com/ns/1.0"){
+# channel setup
+xml.channel{
+xml.title("#{SITE_NAME} Product List")
+xml.link("http://www.#{DOMAIN}")
+xml.description("Full list of products available at #{SITE_NAME}.")
+xml.language('en-us')
+# add products
+for product in @products
+  xml.item do
+    xml.title(product.try(:name).try(:capitalize))
+    xml.link url_for(:controller => 'products', :action => 'details', :id => product, :only_path => false)
+    xml.description(product.try(:tag_line))
+    for photo in product.photos
+      xml.tag! "g:image_link", product_thumbnail_full_path(product)
+    end
+    xml.tag! "g:price", sprintf("%.2f",product.try(:price))
+    xml.tag! "g:id", product.try(:prod_no).try(:to_s)
+    xml.tag! "g:payment_accepted", "Visa"
+    xml.tag! "g:payment_accepted", "MasterCard"
+    xml.tag! "g:model_number", product.try(:mfr_prod_no).try(:to_s)
+    xml.tag! "g:condition", "new"
+    xml.tag! "g:brand", product.try(:manufacturer).try(:name)
+    case product.try(:category).try(:title)
+    when 'bras'
+      xml.tag! "g:type", 'lingerie'
+    when 'knickers'
+      xml.tag! "g:type", 'lingerie'
+    when 'nightwear'
+      xml.tag! "g:type", 'nightwear'
+    when 'tops'
+      xml.tag! "g:type", 'tops'
+    end
+  end
+end
+}
+}
+

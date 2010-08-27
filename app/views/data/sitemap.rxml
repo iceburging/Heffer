@@ -1,0 +1,32 @@
+# setup
+xml.instruct! :xml, :version=>'1.0'
+xml.urlset(:xmlns => "http://www.sitemaps.org/schemas/sitemap/0.9") {
+# static pages
+xml.url {
+xml.loc("http://www.#{DOMAIN}/")
+xml.lastmod(Time.now.localtime.strftime("%Y-%m-%d"))
+xml.changefreq("weekly")
+xml.priority("0.25")
+}
+# public pages
+for page in @pages
+  unless page.menu_entry.nil?
+    xml.url do
+      xml.loc url_for(:controller => 'public', :action => 'show_page', :permalink => page.permalink, :menu_entry => page.menu_entry.permalink, :only_path => false)
+      xml.lastmod(Time.now.localtime.strftime("%Y-%m-%d"))
+      xml.changefreq("monthly")
+      xml.priority("0.25")
+   end
+ end
+end
+# products
+for product in @products
+  xml.url do
+    xml.loc url_for(:controller => 'products', :action => 'details', :id => product, :only_path => false)
+    xml.lastmod(product.updated_at.strftime("%Y-%m-%d"))
+    xml.changefreq("weekly")
+    xml.priority("1.0")
+  end
+end
+}
+

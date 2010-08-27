@@ -1,0 +1,12 @@
+one:
+  product_line:
+  size: MyString
+  colour: MyString
+  available: false
+
+two:
+  product_line:
+  size: MyString
+  colour: MyString
+  available: false
+

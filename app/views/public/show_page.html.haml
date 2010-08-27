@@ -1,0 +1,4 @@
+- title @show_page.title
+
+= RedCloth.new(@show_page.content.to_s).to_html(:refs_site_reference)
+

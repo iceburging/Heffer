@@ -1,0 +1,31 @@
+- title "Invoice"
+
+%p Thankyou for your order. A copy of the invoice has been sent to the email address that you supplied. If you need further assistance please contact us. Have a nice day.
+
+%table
+  %tr
+    %th Item
+    %th Quantity
+    %th Price
+
+  - @order.cart.items.each do |item|
+    %tr
+      %td= item.title
+      %td= item.quantity
+      %td= number_to_currency(item.option.product_line.price, :unit => "&pound;")
+
+  %tr
+    %td
+    %th Subtotal
+    %td= number_to_currency(@order.subtotal, :unit => "&pound;")
+
+  %tr
+    %th Shipping Method
+    %td= @order.shipping_method.try(:name)
+    %td= number_to_currency((@order.shipping_method.try(:price) || 0), :unit => "&pound;")
+
+  %tr
+    %th Total
+    %td
+    %td= number_to_currency(@order.total, :unit => "&pound;")
+

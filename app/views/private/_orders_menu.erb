@@ -1,0 +1,5 @@
+<li <%= "id='selected_sub_menu'" if controller.action_name == 'active' %>><%= link_to 'Active Orders', {:controller => 'orders', :action => 'active'} %></li>
+<li <%= "id='selected_sub_menu'" if controller.action_name == 'completed' %>><%= link_to 'Completed Orders', {:controller => 'orders', :action => 'completed'} %></li>
+<li <%= "id='selected_sub_menu'" if controller.action_name == 'inactive' %>><%= link_to 'Inactive Orders', {:controller => 'orders', :action => 'inactive'} %></li>
+<li <%= "id='selected_sub_menu'" if controller.action_name == 'new' %>><%= link_to 'Place Manual Order', {:controller => 'orders', :action => 'new'} %></li>
+

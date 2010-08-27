@@ -1,0 +1,8 @@
+- semantic_form_for @flag, :html => { :multipart => true } do |form|
+  - form.inputs do
+    = form.input :title, :hint => 'the title of the flag as seen by the public (lowercase please)'
+    = form.input :position, :hint => 'used to control the ordering of categories on the product page (lowest value shown first)'
+    = form.input :blurb, :label => 'Blurb', :hint => 'displayed to the public so they know what they are browsing', :required => false
+    = form.input :image_file, :as => :file, :hint => 'a small 20x20 symbol to indicate a product belongs to this flag'
+  = form.buttons
+

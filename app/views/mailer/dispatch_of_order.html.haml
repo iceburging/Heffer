@@ -1,0 +1,22 @@
+%html
+  %body
+
+    %p Dear #{@order.billing_firstname}
+
+    %p We are pleased to advise you that your order (#{@order.order_number}) is on its way. You should receive it shortly.
+
+    %p We have sent the order to:
+
+    = insert_address(@order.delivery_address)
+
+    %p I hope you have been happy with the service you have received and that you are pleased with the products when they arrive.
+
+    %p If you need to contact us about your order please email us at #{mail_to('orders@'+DOMAIN, 'orders@'+DOMAIN)} quoting your customer order number (#{@order.order_number}).
+
+    %p
+      %b Best wishes
+    %p
+      %b= SIGNEE_NAME
+    %p
+      %b= SIGNEE_POSITION + ', ' + SIGNEE_NAME
+

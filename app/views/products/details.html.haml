@@ -1,0 +1,18 @@
+.product_details
+  #image_area
+    - insert_product_polaroids(@product,params[:image])
+    #image_navigation
+      - insert_image_navigation(@product,params[:image])
+  %h1= @product.name.titleize
+  %h2.by by
+  %h2= @product.manufacturer.name.titleize unless @product.manufacturer.nil?
+  #flag_area
+    - @product.flags.each do |flag|
+      = image_tag flag_path(flag, :format => :png), {:alt => flag.title, :title => flag.title}
+  = RedCloth.new(@product.description).to_html(:refs_site_reference)
+  = render :partial => 'add_to_cart'
+  - unless @range.empty?
+    #range
+      %h3{:class => 'underline'}= "Other items in the #{@product.range.capitalize} range"
+      = render :partial => 'range', :collection => @range, :as => :item
+
